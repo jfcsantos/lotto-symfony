@@ -13,7 +13,7 @@
 
     {% if not lottery.ended %}
 
-        {% if user == False %}
+        {% if app.user.username == False %}
             <p>
                 You need to login/register in order to enter this lottery. Click the button below.
             </p>
@@ -22,7 +22,7 @@
         {% else %}
             <div class="participant-cta-wrapper row text-center">
 
-                {% if user.is_superuser %}
+                {% if app.user.is_superuser %}
                     <form method="post"  id="gen-winner-btn" action="{{ path('generate_winner', lottery.id) }}">
                         <input type="submit" value="Choose Winner" class="btn btn-success" name="generate_winner"/>
                     </form>
