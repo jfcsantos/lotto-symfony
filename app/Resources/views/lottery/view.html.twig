@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <h1>Welcome to the {{lottery.name}}</h1>
+    <p>
+        Here you'll find more information about this contest, the important details and
+        how to register.
+    </p>
+    <p>
+        Lottery ends: {% if lottery.endDate %}{{ lottery.endDate|date('Y-m-d') }}{% endif %}
+    </p>
+
+    {% if not lottery.ended %}
+
+        {% if user == False %}
+            <p>
+                You need to login/register in order to enter this lottery. Click the button below.
+            </p>
+            <a type="button" class="btn btn-success" role="button"  href="{{ path('user_login') }}?next={{ request.get_full_path }}">Login/Register</a>
+
+        {% else %}
+            <div class="participant-cta-wrapper row text-center">
+
+                {% if user.is_superuser %}
+                    <form method="post"  id="gen-winner-btn" action="{{ path('generate_winner', lottery.id) }}">
+                        <input type="submit" value="Choose Winner" class="btn btn-success" name="generate_winner"/>
+                    </form>
+                {% else %}
+                    {% if  not isParticipant %}
+                        <form method="post" action="{{ path('lottery_show', lottery.id) }}">
+                            <input type="submit" value="Participate" class="btn btn-success" name="user_participate"/>
+                        </form>
+                    {% else %}
+                        <h3>You are already registered for this lottery.</h3>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+        {% endif %}
+
+    {% else %}
+        <h2>This lottery already ended.</h2>
+        {% if lottery.winner %}
+            <p>
+                Congratulations to the winner of this edition: <strong>{{lottery.winner}}</strong>
+            </p>
+        {% else %}
+            <p>
+                Unfortunately there was no winner for this lottery, better luck next time.
+            </p>
+        {% endif %}
+    {% endif %}
+
+
+
+
+    <ul>
+        <li>
+            <a href="{{ path('lottery_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

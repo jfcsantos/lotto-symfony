@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        {% stylesheets "%kernel.root_dir%/Resources/public/css/*" %}
+            <link href="{{ asset_url }}" rel="stylesheet" />
+        {% endstylesheets %}
+
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+    <div class="site-wrapper">
+
+        <div class="site-wrapper-inner">
+
+            <div class="cover-container">
+
+                <div class="masthead clearfix">
+                    <div class="inner">
+                        <h3 class="masthead-brand"><a class="navbar-brand" href="/">The Big Win</a></h3>
+                        <nav>
+
+                            <ul class="nav masthead-nav">
+
+                                <li>
+                                    <a href="/login/">Login/Signup</a>
+                                </li>
+
+                                <!-- User info -->
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+
+
+                <!-- Page Content -->
+                <div class="main-page-container">
+
+                  {% block content %}{% endblock %}
+
+                </div>
+                <!-- /.container -->
+
+                <div class="mastfoot">
+                    <div class="inner">
+                        <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% javascripts
+        "%kernel.root_dir%/Resources/public/js/jquery.js"
+        "%kernel.root_dir%/Resources/public/js/bootstrap.min.js"%}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    </body>
+</html>

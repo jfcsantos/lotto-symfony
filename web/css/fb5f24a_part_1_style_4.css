@@ -1,0 +1,70 @@
+body {
+    background-color: #16a085;
+}
+
+input {
+    color: black;
+}
+nav.navbar.navbar-inverse.navbar-fixed-top {
+    background-color: #f1c40f;
+}
+
+.navbar .container {
+    color: #f1c40f;
+}
+
+.navbar-inverse .navbar-brand {
+    color: white;
+    font-size: 30px;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.lottery-list ul {
+    padding: 0;
+}
+
+a.navbar-brand {
+    line-height: 0px;
+    font-size: 25px;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin input {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin input:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.form-control {
+    padding: 20px;
+    margin: 10px 0;
+}

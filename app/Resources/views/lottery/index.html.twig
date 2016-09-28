@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>Lottery list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Startdate</th>
+                <th>Enddate</th>
+                <th>Prize</th>
+                <th>Ended</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for lottery in lotteries %}
+            <tr>
+                <td><a href="{{ path('lottery_show', { 'id': lottery.id }) }}">{{ lottery.id }}</a></td>
+                <td>{{ lottery.name }}</td>
+                <td>{% if lottery.startDate %}{{ lottery.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if lottery.endDate %}{{ lottery.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ lottery.prize }}</td>
+                <td>{% if lottery.ended %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('lottery_show', { 'id': lottery.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('lottery_edit', { 'id': lottery.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('lottery_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

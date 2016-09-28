@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>Lottery</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ lottery.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ lottery.name }}</td>
+            </tr>
+            <tr>
+                <th>Startdate</th>
+                <td>{% if lottery.startDate %}{{ lottery.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Enddate</th>
+                <td>{% if lottery.endDate %}{{ lottery.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Prize</th>
+                <td>{{ lottery.prize }}</td>
+            </tr>
+            <tr>
+                <th>Ended</th>
+                <td>{% if lottery.ended %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('lottery_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('lottery_edit', { 'id': lottery.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
