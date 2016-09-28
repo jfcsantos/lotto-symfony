@@ -7,7 +7,14 @@ security:
         fos_userbundle:
             id: fos_user.user_provider.username
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    test:
+                        password: test
+                        roles: 'ROLE_USER'
+                    admin:
+                        password: admin
+                        roles: 'ROLE_ADMIN'
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs

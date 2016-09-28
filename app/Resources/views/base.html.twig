@@ -21,19 +21,24 @@
                     <div class="inner">
                         <h3 class="masthead-brand"><a class="navbar-brand" href="/">The Big Win</a></h3>
                         <nav>
-
                             <ul class="nav masthead-nav">
-
-                                <li>
-                                    <a href="/login">Login/Signup</a>
-                                </li>
-
+                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    <li>
+                                        <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('fos_user_security_logout') }}">Logout</a>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <a href="{{ path('fos_user_security_login') }}">Login/Signup</a>
+                                    </li>
+                                {% endif %}
                                 <!-- User info -->
                             </ul>
                         </nav>
                     </div>
                 </div>
-
 
 
                 <!-- Page Content -->

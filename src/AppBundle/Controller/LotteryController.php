@@ -24,6 +24,7 @@ class LotteryController extends Controller
      */
     public function indexAction()
     {
+
         $em = $this->getDoctrine()->getManager();
 
         $lotteryRepo = $em->getRepository('AppBundle:Lottery');
