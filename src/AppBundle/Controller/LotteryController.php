@@ -116,7 +116,48 @@ class LotteryController extends Controller
       return $this->redirectToRoute('fos_user_profile_show', array('id' => $lottery->getId()));
     }
 
+
     /**
+     * Generates a winner for a Lottery.
+     *
+     * @Route("/{id}/winner/generate", name="generate_winner")
+     * @Method("POST")
+     */
+    public function generateWinnerAction(Lottery $lottery, Request $request)
+    {
+
+      $securityContext = $this->container->get('security.authorization_checker');
+      if ($securityContext->isGranted('ROLE_ADMIN')) {
+
+      // Get participants
+      $participants = $lottery->getParticipants();
+      var_dump($participants);
+//        if len(participants) > 0 and self.ended is False:
+//            self.winner = random.choice(participants).user
+//            self.ended = True
+//            self.save()
+//            return self.winner
+//        else:
+//            return False
+
+
+      }
+
+      if(isset($user)) {
+        $isParticipant = $lottery->getParticipantByUserId($user->getId());
+        if(!$isParticipant) {
+          $lottery->addParticipant($user);
+          $em = $this->getDoctrine()->getManager();
+          $em->persist($lottery);
+          $em->flush();
+        }
+
+      }
+      return $this->redirectToRoute('fos_user_profile_show', array('id' => $lottery->getId()));
+    }
+
+
+  /**
      * Displays a form to edit an existing Lottery entity.
      *
      * @Route("/{id}/edit", name="lottery_edit")

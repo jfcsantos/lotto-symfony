@@ -35,13 +35,11 @@ class RegistrationListener implements EventSubscriberInterface
     $request = $event->getRequest();
     $referer = $request->headers->get('referer');
     $refererQuery = explode('?',$referer);
-    if(isset($refererQuery[1])) {
 
+    if(isset($refererQuery[1])) {
       parse_str($refererQuery[1], $output);
       if(isset($output['ref_path']) && $output['ref_path'] != '') {
-        $nextPath = explode('/', $output['ref_path']);
-
-        $url = $this->router->generate($nextPath[0], array('id' => $nextPath[1]));
+        $url = $output['ref_path'];
       }
     }
 
