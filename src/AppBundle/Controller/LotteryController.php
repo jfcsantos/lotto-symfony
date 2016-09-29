@@ -53,6 +53,10 @@ class LotteryController extends Controller
             $em->persist($lottery);
             $em->flush();
 
+            $this->addFlash(
+                'notice',
+                'Lottery created!'
+            );
             return $this->redirectToRoute('lottery_show', array('id' => $lottery->getId()));
         }
 
@@ -102,6 +106,11 @@ class LotteryController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($lottery);
             $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'You are now registered for this lottery draw!'
+            );
           }
 
         }
@@ -132,6 +141,11 @@ class LotteryController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($lottery);
             $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'Generated Winner!'
+            );
           }
           else {
             $message = "Something went wrong";
@@ -172,6 +186,11 @@ class LotteryController extends Controller
         if(count($closedLotteries[0]) == 0) {
           $messages = ["There were no Lotteries to close"];
         }
+
+        $this->addFlash(
+            'notice',
+            'Done generating winners!'
+        );
 
         return $this->render('admin/winners.html.twig', array('closedLotteries' => $closedLotteries[0], 'messages' => $messages));
       }
