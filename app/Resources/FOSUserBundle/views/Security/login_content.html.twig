@@ -17,6 +17,9 @@
     <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
 
     <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
-    <input type="hidden" name="_target_path" value="{{ app.request.query.get('next') }}" />
+    <input type="hidden" name="_target_path" value="{{ app.request.query.get('ref_path') }}" />
 
 </form>
+
+<a type="button" class="btn btn-success" role="button"
+   href="{{ path('fos_user_registration_register') }}?ref_path={{ app.request.query.get('ref_path') }}">Login/Register</a>

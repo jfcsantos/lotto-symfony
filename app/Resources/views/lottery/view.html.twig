@@ -18,8 +18,7 @@
                 You need to login/register in order to enter this lottery. Click the button below.
             </p>
             <a type="button" class="btn btn-success" role="button"
-               href="{{ path('fos_user_security_login') }}?next={{ path(app.request.attributes.get('_route'),
-                            app.request.attributes.get('_route_params')) }}">Login/Register</a>
+               href="{{ path('fos_user_security_login') }}?ref_path={{ 'lottery_show/' ~ app.request.attributes.get('_route_params') | join  }}">Login/Register</a>
         {% else %}
             <div class="participant-cta-wrapper row text-center">
 

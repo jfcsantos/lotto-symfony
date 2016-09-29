@@ -7,6 +7,11 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-    authentication.handler.login_success_handler:
-        class:  AppBundle\Security\LoginSuccessHandler
-        arguments:  ['@router', '@security.authorization_checker']
+
+    lottery.registration_listener:
+            class: AppBundle\EventListener\RegistrationListener
+            arguments: ['@router']
+            tags:
+                - { name: kernel.event_subscriber }
+#            tags:
+#                - { name: kernel.event_listener, event: fos_user.registration.confirmed, method: onRegistrationConfirmed }
