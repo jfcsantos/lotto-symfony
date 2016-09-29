@@ -1,20 +1,14 @@
 {
-    "name": "jsantos/lotto_symf",
-    "license": "proprietary",
+    "name": "symfony/framework-standard-edition",
+    "license": "MIT",
     "type": "project",
+    "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
-        "psr-4": {
-            "": "src/"
-        },
-        "classmap": [
-            "app/AppKernel.php",
-            "app/AppCache.php"
-        ]
+        "psr-4": { "": "src/" },
+        "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
+        "psr-4": { "Tests\\": "tests/" }
     },
     "require": {
         "php": ">=5.5.9",
@@ -52,6 +46,11 @@
             "@symfony-scripts"
         ]
     },
+    "config": {
+        "platform": {
+            "php": "5.5.9"
+        }
+    },
     "extra": {
         "symfony-app-dir": "app",
         "symfony-bin-dir": "bin",
@@ -60,11 +59,10 @@
         "symfony-tests-dir": "tests",
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
-            "file": "app/config/parameters.yml",
-            "env-map": {
-                "database_url": "DATABASE_URL",
-                "monolog_action_level": "LOG_LEVEL"
-            }
+            "file": "app/config/parameters.yml"
+        },
+        "branch-alias": {
+            "dev-master": "3.1-dev"
         }
     }
 }
