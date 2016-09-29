@@ -4,14 +4,12 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    lottery.winner_controller:
+            class: AppBundle\Controller\WinnerController
+            arguments: ['@doctrine.orm.entity_manager']
 
     lottery.registration_listener:
             class: AppBundle\EventListener\RegistrationListener
             arguments: ['@router']
             tags:
                 - { name: kernel.event_subscriber }
-#            tags:
-#                - { name: kernel.event_listener, event: fos_user.registration.confirmed, method: onRegistrationConfirmed }

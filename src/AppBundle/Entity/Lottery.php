@@ -267,6 +267,13 @@ class Lottery
         return $this->participants;
     }
 
+    /**
+     * Get participant by user ID
+     *
+     * @param integer $userId
+     *
+     * @return \AppBundle\Entity\User $participant
+     */
     public function getParticipantByUserId($userId)
     {
         $criteria = Criteria::create();
