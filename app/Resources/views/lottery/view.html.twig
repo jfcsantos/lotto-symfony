@@ -13,8 +13,8 @@
 
     {% if not lottery.ended %}
 
-        {% if app.user.username == False %}
-            <p>
+        {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <p>
                 You need to login/register in order to enter this lottery. Click the button below.
             </p>
             <a type="button" class="btn btn-success" role="button"  href="{{ path('user_login') }}?next={{ request.get_full_path }}">Login/Register</a>
@@ -22,13 +22,13 @@
         {% else %}
             <div class="participant-cta-wrapper row text-center">
 
-                {% if app.user.is_superuser %}
-                    <form method="post"  id="gen-winner-btn" action="{{ path('generate_winner', lottery.id) }}">
+                {% if is_granted("ROLE_ADMIN") %}
+                    <form method="post"  id="gen-winner-btn" action="{{ path('generate_winner',  {'id': lottery.id}) }}">
                         <input type="submit" value="Choose Winner" class="btn btn-success" name="generate_winner"/>
                     </form>
                 {% else %}
                     {% if  not isParticipant %}
-                        <form method="post" action="{{ path('lottery_show', lottery.id) }}">
+                        <form method="post" action="{{ path('participant_add', {'id': lottery.id}) }}">
                             <input type="submit" value="Participate" class="btn btn-success" name="user_participate"/>
                         </form>
                     {% else %}

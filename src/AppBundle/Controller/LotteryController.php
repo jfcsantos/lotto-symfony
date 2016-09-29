@@ -71,12 +71,48 @@ class LotteryController extends Controller
      */
     public function showAction(Lottery $lottery)
     {
-        $deleteForm = $this->createDeleteForm($lottery);
+//        $deleteForm = $this->createDeleteForm($lottery);
+//      template_data['isParticipant'] = Participant.objects.get(user=request.user, lottery=template_data['lottery'])
+
+//        $em = $this->getDoctrine()->getManager();
+//
+//        $lotteryRepo = $em->getRepository('AppBundle:Lottery');
+
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $isParticipant = false;
+
+        if(isset($user)) {
+          $isParticipant = $lottery->getParticipantByUserId($user->getId());
+        }
 
         return $this->render('lottery/view.html.twig', array(
             'lottery' => $lottery,
+            'isParticipant' => $isParticipant,
 //            'delete_form' => $deleteForm->createView(),
         ));
+    }
+
+    /**
+     * Adds a participant to a lottery.
+     *
+     * @Route("/{id}/participant/add", name="participant_add")
+     * @Method("POST")
+     */
+    public function participantAddAction(Lottery $lottery, Request $request)
+    {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        if(isset($user)) {
+          $isParticipant = $lottery->getParticipantByUserId($user->getId());
+          if(!$isParticipant) {
+            $lottery->addParticipant($user);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($lottery);
+            $em->flush();
+          }
+         
+        }
+      return $this->redirectToRoute('fos_user_profile_show', array('id' => $lottery->getId()));
     }
 
     /**
