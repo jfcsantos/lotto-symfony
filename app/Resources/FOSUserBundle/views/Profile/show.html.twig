@@ -2,9 +2,39 @@
 {% extends "base.html.twig" %}
 
 {% block content %}
-    <div class="fos_user_user_show">
-        <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
-        <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+    <h1>Hi {{user.username}}!</h1>
+
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1>My Lotteries</h1>
+            {% if ongoing_lotteries %}
+                <ul>
+                    {% for lottery in ongoing_lotteries %}
+                        <li class="list-unstyled">
+                            <a href="{{ path('lottery_show', { 'id': lottery.id }) }}">{{ lottery.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Nothing to show here</p>
+            {% endif %}
+            <h1>Past Lotteries</h1>
+            {% if past_lotteries %}
+                <ul>
+                    {% for lottery in past_lotteries %}
+                        <li class="list-unstyled">
+                            <a href="{{ path('lottery_show', { 'id': lottery.id }) }}">{{ lottery.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Nothing to show here</p>
+            {% endif %}
+        </div>
     </div>
-    <a href="{{ path('fos_user_profile_edit') }}">Edit Profile</a>
+
 {% endblock content %}
+
+
+

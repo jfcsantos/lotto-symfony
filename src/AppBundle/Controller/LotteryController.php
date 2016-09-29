@@ -24,8 +24,6 @@ class LotteryController extends Controller
      */
     public function indexAction()
     {
-      $this->forward('lottery.winner_controller:generateWinnersAction');
-
         $em = $this->getDoctrine()->getManager();
 
         $lotteryRepo = $em->getRepository('AppBundle:Lottery');
@@ -72,12 +70,6 @@ class LotteryController extends Controller
      */
     public function showAction(Lottery $lottery)
     {
-//        $deleteForm = $this->createDeleteForm($lottery);
-//      template_data['isParticipant'] = Participant.objects.get(user=request.user, lottery=template_data['lottery'])
-
-//        $em = $this->getDoctrine()->getManager();
-//
-//        $lotteryRepo = $em->getRepository('AppBundle:Lottery');
         $isParticipant = false;
       
         $securityContext = $this->container->get('security.authorization_checker');
@@ -90,7 +82,6 @@ class LotteryController extends Controller
         return $this->render('lottery/view.html.twig', array(
             'lottery' => $lottery,
             'isParticipant' => $isParticipant,
-//            'delete_form' => $deleteForm->createView(),
         ));
     }
 
