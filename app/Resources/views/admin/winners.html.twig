@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    {% for results in closedLotteries %}
+        <p>Generated winner for lottery {{ results.lottery.name }}: Participant name: {{  results.winner }}</p>
+    {% endfor %}
+
+    {% for msg in messages %}
+        <p>{{ msg }}</p>
+    {% endfor %}
+
+{% endblock %}

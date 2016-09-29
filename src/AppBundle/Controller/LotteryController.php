@@ -122,7 +122,7 @@ class LotteryController extends Controller
      * Generates a winner for a Lottery.
      *
      * @Route("/{id}/winner/generate", name="generate_winner")
-     * @Method({"GET", "POST"})
+     * @Method("POST")
      *
      */
     public function generateWinnerAction(Lottery $lottery, Request $request)
@@ -148,10 +148,33 @@ class LotteryController extends Controller
         }
         return $this->redirectToRoute('lottery_show', array('id' => $lottery->getId()));
       }
-      else {
-
-      }
     }
+
+  /**
+   * Generates a winner for a Lottery.
+   *
+   * @Route("/winners/generate", name="generate_winners")
+   * @Method("GET")
+   *
+   */
+  public function generateWinnersAction(Request $request)
+  {
+      $securityContext = $this->container->get('security.authorization_checker');
+      if ($securityContext->isGranted('ROLE_ADMIN')) {
+        $winnerController = $this->get('lottery.winner_controller');
+        $closedLotteries = $winnerController->generateWinnersAction();
+
+        $messages = $closedLotteries[1];
+
+        if(count($closedLotteries[0]) == 0) {
+          $messages = ["There were no Lotteries to close"];
+        }
+
+        return $this->render('admin/winners.html.twig', array('closedLotteries' => $closedLotteries[0], 'messages' => $messages));
+      }
+      return $this->redirectToRoute('homepage');
+
+  }
 
 
   /**

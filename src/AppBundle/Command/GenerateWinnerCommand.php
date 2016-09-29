@@ -26,11 +26,24 @@ class GenerateWinnerCommand extends ContainerAwareCommand {
   protected function execute(InputInterface $input, OutputInterface $output) {
 
     $winnerController = $this->getContainer()->get('lottery.winner_controller');
-    $endedLotteries = $winnerController->generateWinnersAction();
+    $results = $winnerController->generateWinnersAction();
+    $closedLotteries = $results[0];
+    $messages = $results[1];
 
-//    foreach ($endedLotteries as $key => $lottery) {
-//      $output->writeln(sprintf("About to generate a winner for %s.",$lottery->getName()));
-//    }
+    if(count($closedLotteries) > 0) {
+      foreach ($closedLotteries as $closedLottery) {
+        $output->writeln(sprintf("Generated winner for lottery: %s is participant: %s.", $closedLottery['lottery']->getName(), $closedLottery['winner']));
+      }
+    }
+    elseif(count($messages) > 0) {
+      foreach ($messages as $key => $message) {
+        $output->writeln($message);
+      }
+    }
+    else {
+      $output->writeln("There were no Lotteries to close");
+    }
+
 
   }
 }
