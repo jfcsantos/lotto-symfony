@@ -68,3 +68,16 @@ a.navbar-brand {
     padding: 20px;
     margin: 10px 0;
 }
+
+.flash-notice {
+    height: 100px;
+    line-height: 100px;
+    position: absolute;
+    background-color: orange;
+    width: 96%;
+    z-index: 100000;
+    opacity: 0.7;
+    border-radius: 10px;
+    top: 200px;
+    left: 15px;
+}

@@ -71,7 +71,7 @@ class LotteryController extends Controller
     public function showAction(Lottery $lottery)
     {
         $isParticipant = false;
-      
+
         $securityContext = $this->container->get('security.authorization_checker');
         if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
           $user = $this->get('security.token_storage')->getToken()->getUser();
@@ -103,7 +103,7 @@ class LotteryController extends Controller
             $em->persist($lottery);
             $em->flush();
           }
-         
+
         }
       return $this->redirectToRoute('fos_user_profile_show', array('id' => $lottery->getId()));
     }
@@ -124,7 +124,6 @@ class LotteryController extends Controller
 
           // Get participants
           $participants = $lottery->getParticipants();
-
           if($participants->count() > 0 && !$lottery->getEnded()) {
             $winnerIndex = mt_rand(0, $participants->count() - 1);
             $winner = $participants->get($winnerIndex);
@@ -133,6 +132,19 @@ class LotteryController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($lottery);
             $em->flush();
+          }
+          else {
+            $message = "Something went wrong";
+            if($participants->count() == 0) {
+              $message = "There are no participants yet, can't choose a winner!";
+            }
+            if($lottery->getEnded()) {
+              $message = "Lottery is already closed!";
+            }
+            $this->addFlash(
+                'notice',
+                $message
+            );
           }
 
 

@@ -11,6 +11,11 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+      {% for flash_message in app.session.flashBag.get('notice') %}
+          <div class="flash-notice">
+              {{ flash_message }}
+          </div>
+      {% endfor %}
     <div class="site-wrapper">
 
         <div class="site-wrapper-inner">
@@ -63,7 +68,9 @@
 
     {% javascripts
         "%kernel.root_dir%/Resources/public/js/jquery.js"
-        "%kernel.root_dir%/Resources/public/js/bootstrap.min.js"%}
+        "%kernel.root_dir%/Resources/public/js/bootstrap.min.js"
+        "%kernel.root_dir%/Resources/public/js/script.js"
+      %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
