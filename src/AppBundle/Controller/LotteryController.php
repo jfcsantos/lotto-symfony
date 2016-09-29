@@ -77,11 +77,12 @@ class LotteryController extends Controller
 //        $em = $this->getDoctrine()->getManager();
 //
 //        $lotteryRepo = $em->getRepository('AppBundle:Lottery');
-
-        $user = $this->get('security.token_storage')->getToken()->getUser();
         $isParticipant = false;
-
-        if(isset($user)) {
+      
+        $securityContext = $this->container->get('security.authorization_checker');
+        if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+          $user = $this->get('security.token_storage')->getToken()->getUser();
+          // authenticated REMEMBERED, FULLY will imply REMEMBERED (NON anonymous)
           $isParticipant = $lottery->getParticipantByUserId($user->getId());
         }
 

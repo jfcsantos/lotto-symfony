@@ -27,6 +27,10 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
+                target_path_parameter: redirect_url
+                always_use_default_target_path: false
+                default_target_path:            /
+                success_handler: authentication.handler.login_success_handler
                 # if you are using Symfony < 2.8, use the following config instead:
                 # csrf_provider: form.csrf_provider
 
@@ -36,9 +40,6 @@ security:
 
             # http_basic: ~
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
 
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt

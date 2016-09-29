@@ -34,4 +34,5 @@
         <i class="material-icons">send</i>
     </button>
 </div>
+<input type="hidden" name="_target_path" value="{{ app.request.query.get('next') }}" />
 {{ form_end(form) }}
