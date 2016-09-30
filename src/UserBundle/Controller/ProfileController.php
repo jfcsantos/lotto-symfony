@@ -31,6 +31,7 @@ class ProfileController extends BaseController
 
         $lotteryRepo = $em->getRepository('AppBundle:Lottery');
         $ongoingLotteries = $lotteryRepo->findAll();
+        $myPrizes = $lotteryRepo->findByWinner($user);
         $endedLotteries = [];
         foreach ($ongoingLotteries as $key => $lottery) {
             if(!$lottery->getParticipantByUserId($user->getId())) {
@@ -48,6 +49,7 @@ class ProfileController extends BaseController
             'user' => $user,
             'ongoing_lotteries' => $ongoingLotteries,
             'past_lotteries' => $endedLotteries,
+            'my_prizes' => $myPrizes,
         ));
     }
 

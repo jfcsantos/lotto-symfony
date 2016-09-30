@@ -2,20 +2,24 @@
 
 {% block content %}
 
-    <div class="row">
+    <div class="row lottery-section">
         <div class="col-lg-12 text-center">
             <h1>Ongoing Lotteries</h1>
-            <ul>
-                {% for lottery in ongoing_lotteries %}
-                    <li class="list-unstyled">
-                        <a href="{{ path('lottery_show', { 'id': lottery.id }) }}">{{ lottery.name }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
+            {% if ongoing_lotteries %}
+                <ul>
+                    {% for lottery in ongoing_lotteries %}
+                        <li class="list-unstyled">
+                            <a href="{{ path('lottery_show', { 'id': lottery.id }) }}">{{ lottery.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Nothing to show here</p>
+            {% endif %}
         </div>
     </div>
     <!-- /.row -->
-    <div class="row">
+    <div class="row lottery-section">
         <div class="col-lg-12 text-center">
             <h1>Already ended</h1>
             <ul>
@@ -28,7 +32,7 @@
         </div>
     </div>
     <!-- /.row -->
-    <div class="row">
+    <div class="row lottery-section">
         <div class="col-lg-12 text-center">
             <h1>Previous winners</h1>
             <ul>
@@ -41,4 +45,11 @@
         </div>
     </div>
     <!-- /.row -->
+
+
+    <ul class="bottom-left-links text-right">
+        <li>
+            <a href="{{ path('homepage') }}">< Back to homepage</a>
+        </li>
+    </ul>
 {% endblock %}

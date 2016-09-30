@@ -3,13 +3,21 @@
 {% block content %}
 
     <h1>Welcome to the {{lottery.name}}</h1>
-    <p>
-        Here you'll find more information about this contest, the important details and
-        how to register.
-    </p>
-    <p>
-        Lottery ends: {% if lottery.endDate %}{{ lottery.endDate|date('Y-m-d') }}{% endif %}
-    </p>
+
+    <div class="lottery-section section-top text-left">
+        <p>
+            Here you'll find more information about this contest, the important details and
+            how to register.
+        </p>
+        <p>
+            Lottery prize: <strong>{% if lottery.prize %}{{ lottery.prize | number_format(2, '.', ',')}}{% endif %} €</strong>
+        </p>
+
+        <p>
+            Lottery ends: {% if lottery.endDate %}{{ lottery.endDate|date('Y-m-d') }}{% endif %}
+        </p>
+    </div>
+    <div class="lottery-section section-bottom">
 
     {% if not lottery.ended %}
 
@@ -21,19 +29,21 @@
                href="{{ path('fos_user_security_login') }}?ref_path={{ path(app.request.attributes.get('_route'),
                app.request.attributes.get('_route_params')) }}">Login/Register</a>
         {% else %}
-            <div class="participant-cta-wrapper row text-center">
+            <div class="participant-cta-wrapper row">
 
                 {% if is_granted("ROLE_ADMIN") %}
+                    <p>Generate a winner for this lottery and close it.</p>
                     <form method="post"  id="gen-winner-btn" action="{{ path('generate_winner',  {'id': lottery.id}) }}">
                         <input type="submit" value="Choose Winner" class="btn btn-success" name="generate_winner"/>
                     </form>
                 {% else %}
                     {% if  not isParticipant %}
+                        <p>Clink the button below to sign up for this lottery draw.</p>
                         <form method="post" action="{{ path('participant_add', {'id': lottery.id}) }}">
                             <input type="submit" value="Participate" class="btn btn-success" name="user_participate"/>
                         </form>
                     {% else %}
-                        <h3>You are already registered for this lottery.</h3>
+                        <h3>You are already registered for this lottery. Come back later for the results!</h3>
                     {% endif %}
                 {% endif %}
             </div>
@@ -52,13 +62,13 @@
             </p>
         {% endif %}
     {% endif %}
+    </div>
 
 
 
-
-    <ul>
+    <ul class="bottom-left-links text-right">
         <li>
-            <a href="{{ path('lottery_index') }}">Back to the list</a>
+            <a href="{{ path('lottery_index') }}">< Back to lottery list</a>
         </li>
     </ul>
 {% endblock %}

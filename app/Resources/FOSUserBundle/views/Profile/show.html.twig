@@ -3,11 +3,15 @@
 
 {% block content %}
     <h1>Hi {{user.username}}!</h1>
-
-    <!-- /.row -->
-    <div class="row">
+    <p>
+        Hi there {{ user.username }}, this is your profile page. Here you'll
+        be able to manage the lotteries you're participating in, as well as past
+        games.
+    </p>
+    <div class="row lottery-section">
         <div class="col-lg-12 text-center">
-            <h1>My Lotteries</h1>
+            <h3>Ongoing Lotteries</h3>
+
             {% if ongoing_lotteries %}
                 <ul>
                     {% for lottery in ongoing_lotteries %}
@@ -19,7 +23,12 @@
             {% else %}
                 <p>Nothing to show here</p>
             {% endif %}
-            <h1>Past Lotteries</h1>
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="row lottery-section">
+        <div class="col-lg-12 text-center">
+            <h3>Already ended</h3>
             {% if past_lotteries %}
                 <ul>
                     {% for lottery in past_lotteries %}
@@ -34,6 +43,29 @@
         </div>
     </div>
 
+    <!-- /.row -->
+    <div class="row lottery-section">
+        <div class="col-lg-12 text-center">
+            <h3>My prizes </h3>
+            {% if my_prizes %}
+                <ul>
+                    {% for lottery in my_prizes %}
+                        <li class="list-unstyled">
+                            <a href="{{ path('lottery_show', { 'id': lottery.id }) }}">{{ lottery.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Nothing to show here</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <ul class="bottom-left-links text-right">
+        <li>
+            <a href="{{ path('homepage') }}">< Back to homepage</a>
+        </li>
+    </ul>
 {% endblock content %}
 
 
