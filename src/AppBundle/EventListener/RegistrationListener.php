@@ -42,11 +42,6 @@ class RegistrationListener implements EventSubscriberInterface
         $url = $output['ref_path'];
       }
     }
-    $this->addFlash(
-        'notice',
-        'You are now registered and logged in!'
-    );
-
     $event->setResponse(new RedirectResponse($url));
   }
 
