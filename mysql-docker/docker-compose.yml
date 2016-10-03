@@ -1,0 +1,9 @@
+db:
+  image: mysql
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: lottery
+    MYSQL_USER: lottery
+    MYSQL_PASSWORD: lottery
+    MYSQL_DATABASE: lottery
